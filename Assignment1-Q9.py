@@ -49,6 +49,7 @@ def evaluate_model(y_true, y_pred, dataset_name):
     print(confusion_matrix(y_true, y_pred))
     print("Classification Report:")
     print(classification_report(y_true, y_pred))
+    print("Huzaifa Mohammed (40242080),\n Mohammed Shurrab (40323793),\n Oleksandr Yasinovskyy (40241188)")
 
 # Predictions
 train_pred = model.predict(X_train)
