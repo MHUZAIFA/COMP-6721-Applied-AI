@@ -12,6 +12,7 @@ import seaborn as sns
 
 ## Step 2: Load Dataset
 df = pd.read_excel("R:\Ph.D\COMP6721-AI\Assignments\COMP6721_Assignment1_S25\Wallet.xlsx")
+#df = pd.read_excel("/Users/mohammedhuzaifa/Desktop/MACS/COMP 6721 AA/Assignments/A1/COMP-6721-Applied-AI/Wallet.xlsx")
 print(df.head())
 
 ## Step 3: Preprocess Data
@@ -66,21 +67,25 @@ for lr in [0.1, 0.5]:
                                 objective="multi:softmax", num_class=4, eval_metric="mlogloss")
         clf.fit(X_train, y_train)
         pred = clf.predict(X_test)
-        acc = accuracy_score(y_test, pred)
-        f1 = f1_score(y_test, pred, average='macro')
-        results.append((lr, depth, acc, f1))
+        acc_test = accuracy_score(y_test, pred)
+        acc_train = accuracy_score(y_train, clf.predict(X_train))
+        f1_test = f1_score(y_test, pred, average='macro')
+        f1_train = f1_score(y_train, clf.predict(X_train), average='macro')
+        results.append((lr, depth, acc_test, f1_test, acc_train, f1_train))
 
-results_df = pd.DataFrame(results, columns=["Learning Rate", "Max Depth", "Test Accuracy", "F1 Score"])
+results_df = pd.DataFrame(results, columns=["Learning Rate", "Max Depth", "Test - Accuracy", "Test - F1 Score", "Train - Accuracy", "Train - F1 Score"])
 print("\nComparison of Different Learning Rates and Tree Depths:")
 print(results_df)
 print("Huzaifa Mohammed (40242080),\nMohammed Shurrab (40323793),\nOleksandr Yasinovskyy (40241188)")
 
 
-## Step 7: Visualize Results
-sns.barplot(data=results_df, x="Learning Rate", y="Test Accuracy", hue="Max Depth")
-plt.title("Test Accuracy by Learning Rate and Max Depth")
-plt.show()
+# ## Step 7: Visualize Results
+# # test
+# sns.barplot(data=results_df[0:4], x="Learning Rate", y="Test Accuracy", hue="Max Depth")
+# plt.title("Test Accuracy by Learning Rate and Max Depth")
+# plt.show()
 
-sns.barplot(data=results_df, x="Learning Rate", y="F1 Score", hue="Max Depth")
-plt.title("F1 Score by Learning Rate and Max Depth")
-plt.show()
+# sns.barplot(data=results_df[0:4], x="Learning Rate", y="F1 Score", hue="Max Depth")
+# plt.title("F1 Score by Learning Rate and Max Depth")
+# plt.show()
+
